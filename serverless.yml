@@ -1,0 +1,15 @@
+service: covid19-etl
+frameworkVersion: '2'
+provider:
+  name: aws
+  runtime: python3.x
+  stage: ${opt:stage, 'dev'} # Set the default stage used. Default is dev
+  region: ${opt:region, 'eu-west-1'} # Overwrite the default region used. Default is us-east-1
+  stackName: covid19-etl # Use a custom name for the CloudFormation stack
+  apiName: covid19-etl # Use a custom name for the API Gateway API
+  websocketsApiName: covid19-etl # Use a custom name for the websockets API
+  websocketsApiRouteSelectionExpression: $request.body.route # custom route selection expression
+  profile: production # The default profile to use with this service
+  memorySize: 512 # Overwrite the default memory size. Default is 1024
+  timeout: 15 # The default is 6 seconds. Note: API Gateway current maximum is 30 seconds
+  logRetentionInDays: 14 # Set the default RetentionInDays for a CloudWatch LogGroup
