@@ -16,13 +16,19 @@ def main():
     jh_response = pd.read_csv(john_hopkins_url)
 
     jh_response_us = jh_response[jh_response['Country/Region'] == 'US']
+    combined_response = [][]
 
     for nyt_index, nyt_row in nyt_response.iterrows():
 
-        nyt_date = nyt_row['date']
-
-        jh_response_us_current = jh_response_us[jh_response_us['Date'] == nyt_date]
+        date = nyt_row['date']
+        jh_response_us_current = jh_response_us[jh_response_us['Date'] == date]
+        print(str(nyt_index))
+        print(str(nyt_row))
+        
         if not jh_response_us_current.empty:
-            print('Date: ' + str(nyt_row['date']), 'Cases: ' + str(nyt_row['cases']), 'Recovered: ' + str(jh_response_us_current['Recovered'].values[0]), 'Deaths: ' + str(nyt_row['deaths']))
+            cases = nyt_row['cases']
+            recovered = jh_response_us_current['Recovered'].values[0]
+            deaths = nyt_row['deaths']
 
+            print('Date: ' + str(date), 'Cases: ' + str(cases), 'Recovered: ' + str(recovered), 'Deaths: ' + str(deaths))
 main()
